@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sink Form</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .radio-group {
+            display: flex;
+            gap: 10px; /* Adjust the gap as needed */
+        }
+        .radio-group label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<p><a href="{% url 'questionnaire' %}"><< Go Back</a></p>
+    <form method="post" action="" target="answers_iframe">
+        {% csrf_token %}
+        <table border="3">
+            <tr><th style="color: red;text-align: center;">Sinking</th></tr>
+            {% for field in form %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td class="radio-group">
+                        {% for radio in field %}
+                            {{ radio }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr><td><input type="submit" value="Submit"></td></tr>
+        </table>
+    </form>
+</body>
+</html>

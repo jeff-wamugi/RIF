@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIFs Questionnaire</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .left-pane {
+            flex: 1;
+            height: 100%;
+        }
+        .right-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .right-pane iframe {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;color: gray;">
+        <h1><u>Bayesian Risk Indicating Factors (RIFs) Analysis</u></h1>
+    </div>
+    <div class="container">
+        <iframe class="left-pane" src="{% url 'questionnaire' %}" name="questionnaire_iframe" id="questionnaire_iframe"></iframe>
+        <div class="right-pane">
+            <iframe src="{% url 'current_answers' %}" name="answers_iframe" id="answers_iframe"></iframe>
+            <iframe src="{% url 'results' %}" name="results_iframe" id="results_iframe"></iframe>
+        </div>
+    </div>
+</body>
+</html>

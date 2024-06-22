@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checked List</title>
+</head>
+<body>
+    <table border="3">
+        <thead>
+            <tr>
+                <th>Answered Questions</th>
+                <th>Selected Choice</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for field, data in form_data.items %}
+            <tr>
+                <td>{{ data.label }}</td>
+                <td style="color: green;text-align: center;">{{ data.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
