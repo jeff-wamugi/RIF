@@ -72,6 +72,7 @@ def sink_form_view(request):
         form = SinkForm(request.POST)
         if form.is_valid():
             form_data = form.get_labels_and_data()
+            risk_type = 'Sinking'
             # Process form data
             data = form.cleaned_data
             # Access individual inputs
@@ -81,7 +82,7 @@ def sink_form_view(request):
             print(data['question4'])
             print(data['question5'])
             # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data})
+            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type':risk_type})
     else:
         form = SinkForm()
     return render(request, 'sink_form.html', {'form': form})
@@ -91,12 +92,13 @@ def collision_form_view(request):
         form = CollisionForm(request.POST)
         if form.is_valid():
             form_data = form.get_labels_and_data()
+            risk_type = 'Collision'
             data = form.cleaned_data
             # Access individual inputs
             print(data['question1'])
             print(data['question2'])
             # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data})
+            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type': risk_type})
     else:
         form = CollisionForm()
     return render(request, 'collision_form.html', {'form': form})
@@ -106,12 +108,13 @@ def explosion_form_view(request):
         form = ExplosionForm(request.POST)
         if form.is_valid():
             form_data = form.get_labels_and_data()
+            risk_type = 'Explosion'
             data = form.cleaned_data
             # Access individual inputs
             print(data['question1'])
             print(data['question2'])
             # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data})
+            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type': risk_type})
     else:
         form = ExplosionForm()
     return render(request, 'explosion_form.html', {'form': form})
@@ -121,12 +124,13 @@ def grounding_form_view(request):
         form = GroundingForm(request.POST)
         if form.is_valid():
             form_data = form.get_labels_and_data()
+            risk_type = 'Grounding'
             data = form.cleaned_data
             # Access individual inputs
             print(data['question1'])
             print(data['question2'])
             # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data})
+            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type': risk_type})
     else:
         form = GroundingForm()
     return render(request, 'grounding_form.html', {'form': form})
