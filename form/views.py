@@ -76,13 +76,33 @@ def sink_form_view(request):
             # Process form data
             data = form.cleaned_data
             # Access individual inputs
-            squestion1 = data['question1']
-            print(data['question2'])
-            print(data['question3'])
-            print(data['question4'])
-            print(data['question5'])
-            # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type':risk_type})
+            # Define the probabilities for each question
+            probabilities = {
+                'question1': 0.25,
+                'question2': 0.15,
+                'question3': 0.1,
+                'question4': 0.2,
+                'question5': 0.3
+            }
+
+            # Calculate the sum of probabilities for each "yes" answer
+            total_probability = 0
+            for question, prob in probabilities.items():
+                answer = data[question]
+                if answer == 'yes':
+                    total_probability += prob
+
+            # The overall probability of sinking happening
+            like_prob = int(total_probability * 100)
+            # The probability of sinking not happening
+            unlike_prob = int(100 - like_prob)
+
+            return render(request, 'CheckedList.html', {
+                'form_data': form_data,
+                'risk_type': risk_type,
+                'like_prob': like_prob,
+                'unlike_prob': unlike_prob
+            })
     else:
         form = SinkForm()
     return render(request, 'sink_form.html', {'form': form})
@@ -95,10 +115,33 @@ def collision_form_view(request):
             risk_type = 'Collision'
             data = form.cleaned_data
             # Access individual inputs
-            print(data['question1'])
-            print(data['question2'])
-            # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type': risk_type})
+            # Define the probabilities for each question
+            probabilities = {
+                'question1': 0.2,
+                'question2': 0.15,
+                'question3': 0.1,
+                'question4': 0.2,
+                'question5': 0.15
+            }
+
+            # Calculate the sum of probabilities for each "yes" answer
+            total_probability = 0
+            for question, prob in probabilities.items():
+                answer = data[question]
+                if answer == 'yes':
+                    total_probability += prob
+
+            # The overall probability of sinking happening
+            like_prob = int((total_probability/0.8) * 100)
+            # The probability of sinking not happening
+            unlike_prob = int(100 - like_prob)
+
+            return render(request, 'CheckedList.html', {
+                'form_data': form_data,
+                'risk_type': risk_type,
+                'like_prob': like_prob,
+                'unlike_prob': unlike_prob
+            })
     else:
         form = CollisionForm()
     return render(request, 'collision_form.html', {'form': form})
@@ -111,10 +154,33 @@ def explosion_form_view(request):
             risk_type = 'Explosion'
             data = form.cleaned_data
             # Access individual inputs
-            print(data['question1'])
-            print(data['question2'])
-            # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type': risk_type})
+            # Define the probabilities for each question
+            probabilities = {
+                'question1': 0.2,
+                'question2': 0.15,
+                'question3': 0.1,
+                'question4': 0.15,
+                'question5': 0.2
+            }
+
+            # Calculate the sum of probabilities for each "yes" answer
+            total_probability = 0
+            for question, prob in probabilities.items():
+                answer = data[question]
+                if answer == 'yes':
+                    total_probability += prob
+
+            # The overall probability of sinking happening
+            like_prob = int((total_probability/0.8) * 100)
+            # The probability of sinking not happening
+            unlike_prob = int(100 - like_prob)
+
+            return render(request, 'CheckedList.html', {
+                'form_data': form_data,
+                'risk_type': risk_type,
+                'like_prob': like_prob,
+                'unlike_prob': unlike_prob
+            })
     else:
         form = ExplosionForm()
     return render(request, 'explosion_form.html', {'form': form})
@@ -127,10 +193,33 @@ def grounding_form_view(request):
             risk_type = 'Grounding'
             data = form.cleaned_data
             # Access individual inputs
-            print(data['question1'])
-            print(data['question2'])
-            # Do something with the data
-            return render(request, 'CheckedList.html', {'form_data': form_data, 'risk_type': risk_type})
+            # Define the probabilities for each question
+            probabilities = {
+                'question1': 0.2,
+                'question2': 0.15,
+                'question3': 0.1,
+                'question4': 0.2,
+                'question5': 0.15
+            }
+
+            # Calculate the sum of probabilities for each "yes" answer
+            total_probability = 0
+            for question, prob in probabilities.items():
+                answer = data[question]
+                if answer == 'yes':
+                    total_probability += prob
+
+            # The overall probability of sinking happening
+            like_prob = int((total_probability/0.8) * 100)
+            # The probability of sinking not happening
+            unlike_prob = int(100 - like_prob)
+
+            return render(request, 'CheckedList.html', {
+                'form_data': form_data,
+                'risk_type': risk_type,
+                'like_prob': like_prob,
+                'unlike_prob': unlike_prob
+            })
     else:
         form = GroundingForm()
     return render(request, 'grounding_form.html', {'form': form})

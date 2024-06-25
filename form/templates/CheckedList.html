@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checked List</title>
+    <style>
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: flex;
+        }
+        .progress-bar {
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+        }
+        .progress-bar.red {
+            background-color: red;
+        }
+        .progress-bar.blue {
+            background-color: blue;
+        }
+    </style>
 </head>
 <body>
-    <table border="3">
+    <table>
         <thead>
             <tr>
                 <th>Answered Questions of ( {{risk_type}} )</th>
@@ -22,5 +45,36 @@
             {% endfor %}
         </tbody>
     </table>
+    <h2>Results</h2>
+    <p>Probability of ({{ risk_type }}) happening is: <b style="color: red;"> {{ like_prob }}% </b></p>
+    <p>Probability of ({{ risk_type }}) not happening is: <b style="color: blue;"> {{ unlike_prob }}% </b></p>
+
+    <div class="progress-container">
+        <div class="progress-bar red" id="probabilityBarRed">0%</div>
+        <div class="progress-bar blue" id="probabilityBarBlue">0%</div>
+    </div>
+
+    <script>
+        // Function to update the progress bar
+        function updateProgressBar() {
+            var barRed = document.getElementById("probabilityBarRed");
+            var barBlue = document.getElementById("probabilityBarBlue");
+
+            var like_prob = {{ like_prob }};
+            var unlike_prob = {{ unlike_prob }};
+
+            var percentageLike = like_prob;
+            var percentageUnlike = unlike_prob;
+
+            barRed.style.width = percentageLike + "%";
+            barRed.textContent = percentageLike.toFixed(2) + "%";
+
+            barBlue.style.width = percentageUnlike + "%";
+            barBlue.textContent = percentageUnlike.toFixed(2) + "%";
+        }
+
+        updateProgressBar();
+    </script>
+
 </body>
 </html>

@@ -28,7 +28,7 @@
     <form method="post" action="" target="answers_iframe">
         {% csrf_token %}
         <table border="3">
-            <tr><th style="color: red;text-align: center;">Collision</th></tr>
+            <tr><th colspan="2" style="color: red;text-align: center;">Explosion</th></tr>
             {% for field in form %}
                 <tr>
                     <td>{{ field.label_tag }}</td>
