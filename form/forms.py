@@ -29,7 +29,7 @@ class SinkForm(forms.Form):
     question3 = forms.ChoiceField(
         choices=QUESTION_CHOICES,
         widget=forms.RadioSelect,
-        label="Were the enough life-saving devices on the wheel?"
+        label="Were the enough life-saving devices on the vessel?"
     )
     question4 = forms.ChoiceField(
         choices=QUESTION_CHOICES,
