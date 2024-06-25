@@ -89,9 +89,18 @@ def sink_form_view(request):
             total_probability = 0
             for question, prob in probabilities.items():
                 answer = data[question]
-                if answer == 'yes':
-                    total_probability += prob
+                if question == 'question3':
+                    if answer == 'no':
+                        total_probability += prob
+                    else:
+                        total_probability -= 0.0  # Assign 0.1 for any choice other than 'yes' for question 3
+                else:
+                    if answer == 'yes':
+                        total_probability += prob
 
+
+            # Cap the total_probability to 1.0
+            total_probability = min(total_probability, 1.0)
             # The overall probability of sinking happening
             like_prob = int(total_probability * 100)
             # The probability of sinking not happening
@@ -128,8 +137,14 @@ def collision_form_view(request):
             total_probability = 0
             for question, prob in probabilities.items():
                 answer = data[question]
-                if answer == 'yes':
-                    total_probability += prob
+                if (question == 'question1') or (question == 'question2') or (question == 'question5'):
+                    if answer == 'no':
+                        total_probability += prob
+                    else:
+                        total_probability -= 0.0  # Assign 0.1 for any choice other than 'yes' for question 3
+                else:
+                    if answer == 'yes':
+                        total_probability += prob
 
             # The overall probability of sinking happening
             like_prob = int((total_probability/0.8) * 100)
@@ -167,8 +182,14 @@ def explosion_form_view(request):
             total_probability = 0
             for question, prob in probabilities.items():
                 answer = data[question]
-                if answer == 'yes':
-                    total_probability += prob
+                if (question == 'question1') or (question == 'question2'):
+                    if answer == 'no':
+                        total_probability += prob
+                    else:
+                        total_probability -= 0.0  # Assign 0.1 for any choice other than 'yes' for question 3
+                else:
+                    if answer == 'yes':
+                        total_probability += prob
 
             # The overall probability of sinking happening
             like_prob = int((total_probability/0.8) * 100)
@@ -206,8 +227,14 @@ def grounding_form_view(request):
             total_probability = 0
             for question, prob in probabilities.items():
                 answer = data[question]
-                if answer == 'yes':
-                    total_probability += prob
+                if (question == 'question1') or (question == 'question5'):
+                    if answer == 'no':
+                        total_probability += prob
+                    else:
+                        total_probability -= 0.0  # Assign 0.1 for any choice other than 'yes' for question 3
+                else:
+                    if answer == 'yes':
+                        total_probability += prob
 
             # The overall probability of sinking happening
             like_prob = int((total_probability/0.8) * 100)
