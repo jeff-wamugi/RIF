@@ -29,6 +29,8 @@
     </style>
 </head>
 <body>
+<form method="POST" action="">
+    {% csrf_token %}
     <table>
         <thead>
             <tr>
@@ -75,6 +77,9 @@
 
         updateProgressBar();
     </script>
-
+    <div style="text-align: center;">
+     <input type="submit" value="SUBMIT REPORT">
+    </div>
+</form>
 </body>
 </html>

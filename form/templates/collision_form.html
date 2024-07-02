@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,14 +22,29 @@
         .radio-group label {
             margin-right: 10px;
         }
+        .header-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center align the contents horizontally */
+            gap: 50px; /* Adjust the gap between the image and the text */
+        }
+        .header-cell img {
+            width: 50px; /* Adjust the width of the image */
+            height: 50px; /* Adjust the height of the image */
+        }
     </style>
 </head>
 <body>
-<p><a href="{% url 'questionnaire' %}"><< Go Back</a></p>
+    <p><a href="{% url 'questionnaire' %}"><< Go Back</a></p>
     <form method="post" action="" target="answers_iframe">
         {% csrf_token %}
         <table border="3">
-            <tr><th colspan="2" style="color: red;text-align: center;">Collision</th></tr>
+            <tr>
+                <th colspan="2" class="header-cell">
+                    <img src="{% static 'images/collision.jpg' %}" alt="Sink Image">
+                    <span>Collision</span>
+                </th>
+            </tr>
             {% for field in form %}
                 <tr>
                     <td>{{ field.label_tag }}</td>
@@ -39,7 +55,10 @@
                     </td>
                 </tr>
             {% endfor %}
-            <tr><td><input type="submit" value="Submit"></td><td><input type="reset" value="Reset"></td></tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+                <td><input type="reset" value="Reset"></td>
+            </tr>
         </table>
     </form>
 </body>
