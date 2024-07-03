@@ -12,7 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 # Create your views here.
-from .forms import CreateUserForm, SinkForm, CollisionForm, ExplosionForm, GroundingForm
+from .forms import *
+from .models import *
 
 
 def registerPage(request):
@@ -106,6 +107,19 @@ def sink_form_view(request):
             # The probability of sinking not happening
             unlike_prob = int(100 - like_prob)
 
+            # Save responses to the database
+            risk_instance, created = Risks.objects.get_or_create(risk_type=risk_type)
+            for field_name, answer in data.items():
+                question_instance, created = Questions.objects.get_or_create(risks=risk_instance,
+                                                                             question_text=form.fields[
+                                                                                 field_name].label)
+                answer_instance, created = Answers.objects.get_or_create(questions=question_instance,
+                                                                         answer_text=answer,
+                                                                         prob_happen=like_prob,
+                                                                         prob_nothappen=unlike_prob)
+                UserResponses.objects.create(questions=question_instance, answers=answer_instance)
+
+            messages.success(request, 'Database updated! ')
             return render(request, 'CheckedList.html', {
                 'form_data': form_data,
                 'risk_type': risk_type,
@@ -252,6 +266,7 @@ def grounding_form_view(request):
     return render(request, 'grounding_form.html', {'form': form})
 
 def CheckedListPage(request):
+
     return render(request, 'CheckedList.html')
 
 

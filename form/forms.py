@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import *
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -153,7 +154,25 @@ class GroundingForm(forms.Form):
     def get_labels_and_data(self):
         return {field.name: {'label': field.label, 'value': self.cleaned_data[field.name]} for field in self}
 
+class createRisk(forms.ModelForm):
+    class Meta:
+        model = Risks
+        fields = '__all__'
 
+class createQuestion(forms.ModelForm):
+    class Meta:
+        model = Questions
+        fields = '__all__'
+
+class createAnswer(forms.ModelForm):
+    class Meta:
+        model = Answers
+        fields = '__all__'
+
+class createUserResponse(forms.ModelForm):
+    class Meta:
+        model = UserResponses
+        fields = '__all__'
 
 
 
