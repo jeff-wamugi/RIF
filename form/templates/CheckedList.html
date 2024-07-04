@@ -76,5 +76,10 @@
 
         updateProgressBar();
     </script>
+{% if messages %}
+    {% for message in messages %}
+     <p style="color:maroon;">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
 </body>
 </html>

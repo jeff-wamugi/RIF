@@ -14,6 +14,7 @@ from django.http import JsonResponse
 # Create your views here.
 from .forms import *
 from .models import *
+from django.db.models import F
 
 
 def registerPage(request):
@@ -57,10 +58,16 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def say_hello(request):
-    # Pull data from db
-    # Transform
-    # Send email
-    return render(request, 'hello.html')
+    # Query to get userresponses_id, response_time, and risk_type for all records, sorted by response_date in descending order
+    queryset = UserResponses.objects.select_related('questions__risks').values(
+        'id', 'response_date', 'questions__risks__risk_type'
+    ).annotate(
+        userresponses_id=F('id'),
+        response_time=F('response_date'),
+        risk_type=F('questions__risks__risk_type')
+    ).values('userresponses_id', 'response_time', 'risk_type').order_by('-response_time')
+
+    return render(request, 'hello.html', {'risk_records': queryset})
 
 def FramesetFormPage(request):
     return render(request, 'FramesetForm.html')
@@ -120,12 +127,12 @@ def sink_form_view(request):
 
             UserResponses.objects.create(questions=question_instance, answers=answer_instance)
 
-            messages.success(request, 'Database updated! ')
+            messages.success(request, 'Success: Data submitted to a Safety Engineer! ')
             return render(request, 'CheckedList.html', {
                 'form_data': form_data,
                 'risk_type': risk_type,
                 'like_prob': like_prob,
-                'unlike_prob': unlike_prob
+                'unlike_prob': unlike_prob,
             })
     else:
         form = SinkForm()
@@ -178,7 +185,7 @@ def collision_form_view(request):
                                                                          prob_nothappen=unlike_prob)
                 UserResponses.objects.create(questions=question_instance, answers=answer_instance)
 
-            messages.success(request, 'Database updated! ')
+            messages.success(request, 'Success: Data submitted to a Safety Engineer! ')
 
             return render(request, 'CheckedList.html', {
                 'form_data': form_data,
@@ -237,7 +244,7 @@ def explosion_form_view(request):
                                                                          prob_nothappen=unlike_prob)
                 UserResponses.objects.create(questions=question_instance, answers=answer_instance)
 
-            messages.success(request, 'Database updated! ')
+            messages.success(request, 'Success: Data submitted to a Safety Engineer! ')
 
             return render(request, 'CheckedList.html', {
                 'form_data': form_data,
@@ -296,7 +303,7 @@ def grounding_form_view(request):
                                                                          prob_nothappen=unlike_prob)
                 UserResponses.objects.create(questions=question_instance, answers=answer_instance)
 
-            messages.success(request, 'Database updated! ')
+            messages.success(request, 'Success: Data submitted to a Safety Engineer! ')
 
             return render(request, 'CheckedList.html', {
                 'form_data': form_data,

@@ -23,6 +23,17 @@
             padding: 20px 0;
             color: white;
         }
+        .header a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            background-color: darkblue;
+            border-radius: 5px;
+        }
+        .header a:hover {
+            background-color: deepskyblue;
+        }
         .footer p {
             margin: 0;
             padding: 10px 0;
@@ -52,6 +63,7 @@
 <body>
     <div class="header">
         <h1><u>Bayesian Risk Indicating Factors (RIFs) Analysis</u></h1>
+        <p><a href="{% url 'login' %}">Login</a></p>
     </div>
     <div class="container">
         <div class="left-pane">
@@ -62,7 +74,7 @@
         </div>
     </div>
     <div class="contact-info">
-        <p><i>Need Help? <b>Contact: 0793030482 /Email: jefftumuti@gmail.com</b></i></p>
+        <p><i>Need Help? <b>Contact: +254793030482 /Email: jefftumuti@gmail.com</b></i></p>
     </div>
     <div class="footer">
         <p><i>All rights reserved 2024</i></p>

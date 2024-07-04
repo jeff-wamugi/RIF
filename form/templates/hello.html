@@ -1,14 +1,29 @@
 <! DOCTYPE HTML>
 <html>
 <head>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIFs Questionnaire</title>
 </head>
 <body>
-
 <div style="display: flex; justify-content: space-between;">
   <span style="font-family: Gabriola; font-size: 24px;">Welcome, <b>{{request.user}}</b></span>
   <span><a href="{% url 'logout' %}">Logout</a></span>
 </div>
+
+<table cellpadding="4" cellspacing="10" width="100%" border="5">
+  <tr><th colspan="5" style="color:blue;text-align:center;">RECORDS</th></tr>
+  <tr><th>Record Number</th><th>Time Logged</th><th>Risk Type</th><th>View</th><th>Delete</th></tr>
+  {% for record in risk_records %}
+  <tr>
+    <td style="text-align:center;">{{ record.userresponses_id }}</td>
+    <td style="text-align:center;">{{ record.response_time }}</td>
+    <td style="text-align:center;">{{ record.risk_type }}</td>
+    <td style="text-align:center;"><a href="">View</a></td>
+    <td style="text-align:center;"><a href="">Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
 
 </body>
 </html>
