@@ -28,6 +28,7 @@ class UserResponses(models.Model):
     questions = models.ForeignKey(Questions, null=True, on_delete=models.SET_NULL)
     answers = models.ForeignKey(Answers, null=True, on_delete=models.SET_NULL)
     response_date = models.DateTimeField(auto_now_add=True, null=True)
+    risks = models.ForeignKey(Risks,null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"Response to {self.questions} - {self.answers}"
