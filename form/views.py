@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
@@ -68,6 +68,30 @@ def say_hello(request):
     ).values('userresponses_id', 'response_time', 'risk_type').order_by('-response_time')
 
     return render(request, 'hello.html', {'risk_records': queryset})
+
+
+def ResultsPage(request, pk):
+    # Get the UserResponse instance
+    user_response = get_object_or_404(UserResponses, id=pk)
+
+    # Get all the related questions and answers
+    responses = UserResponses.objects.filter(id=pk).select_related('questions', 'answers')
+
+    # Collect detailed information for each response
+    records = []
+    for response in responses:
+        records.append({
+            'question': response.questions.question_text,
+            'answer': response.answers.answer_text,
+            'prob_happen': response.answers.prob_happen,
+            'prob_nothappen': response.answers.prob_nothappen,
+        })
+
+    context = {
+        'user_response': user_response,
+        'records': records
+    }
+    return render(request, 'Results.html', context)
 
 def FramesetFormPage(request):
     return render(request, 'FramesetForm.html')
@@ -319,5 +343,3 @@ def CheckedListPage(request):
     return render(request, 'CheckedList.html')
 
 
-def ResultsPage(request):
-    return render(request, 'Results.html')

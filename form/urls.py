@@ -4,7 +4,7 @@ from . import views
 # URLConfig
 urlpatterns = [
     path('', views.FramesetFormPage, name="frameset"),
-    path('Results/', views.ResultsPage, name="results"),
+    path('Results/<str:pk>/', views.ResultsPage, name="results"),
     path('CheckedList/', views.CheckedListPage, name="current_answers"),
     path('Questionnaire/', views.QuestionnairePage, name="questionnaire"),
     path('sink-form/', views.sink_form_view, name='sink_form'),

@@ -1,3 +1,4 @@
+<!-- Results.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,25 @@
     <title>Results</title>
 </head>
 <body>
-    <h1>Error</h1>
-    <p>{{ error }}</p>
+    <h1>User Response</h1>
+    <p>Risk Type: {{ user_response.questions.risks.risk_type }}</p>
+    <p>Response Time: {{ user_response.response_date }}</p>
+
+    <table width="100%">
+        <tr>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Probability of Happening</th>
+            <th>Probability of Not Happening</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.question }}</td>
+            <td>{{ record.answer }}</td>
+            <td>{{ record.prob_happen }}%</td>
+            <td>{{ record.prob_nothappen }}%</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
