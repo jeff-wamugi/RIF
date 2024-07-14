@@ -20,10 +20,10 @@
         </tr>
         {% for record in records %}
         <tr>
-            <td>{{ record.question }}</td>
-            <td>{{ record.answer }}</td>
-            <td>{{ record.prob_happen }}%</td>
-            <td>{{ record.prob_nothappen }}%</td>
+            <td style="text-align:center;">{{ record.question }}</td>
+            <td style="text-align:center;">{{ record.answer }}</td>
+            <td style="text-align:center;">{{ record.prob_happen }}%</td>
+            <td style="text-align:center;">{{ record.prob_nothappen }}%</td>
         </tr>
         {% endfor %}
     </table>

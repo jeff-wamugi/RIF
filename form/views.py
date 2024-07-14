@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
-
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib import messages
@@ -67,9 +67,14 @@ def say_hello(request):
         risk_type=F('questions__risks__risk_type')
     ).values('userresponses_id', 'response_time', 'risk_type').order_by('-response_time')
 
-    return render(request, 'hello.html', {'risk_records': queryset})
+    # Pagination
+    paginator = Paginator(queryset, 5)  # Show 5 records per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
+    return render(request, 'hello.html', {'risk_records': page_obj})
 
+@login_required(login_url='login')
 def ResultsPage(request, pk):
     # Get the UserResponse instance
     user_response = get_object_or_404(UserResponses, id=pk)
@@ -89,9 +94,15 @@ def ResultsPage(request, pk):
 
     context = {
         'user_response': user_response,
-        'records': records
+        'records': records,
     }
     return render(request, 'Results.html', context)
+
+def delete_response(request, pk):
+    response = get_object_or_404(UserResponses, id=pk)
+    response.delete()
+    messages.success(request, 'Record deleted successfully!')
+    return redirect('hello')
 
 def FramesetFormPage(request):
     return render(request, 'FramesetForm.html')

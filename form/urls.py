@@ -7,6 +7,7 @@ urlpatterns = [
     path('Results/<str:pk>/', views.ResultsPage, name="results"),
     path('CheckedList/', views.CheckedListPage, name="current_answers"),
     path('Questionnaire/', views.QuestionnairePage, name="questionnaire"),
+    path('delete-response/<int:pk>/', views.delete_response, name='delete_response'),
     path('sink-form/', views.sink_form_view, name='sink_form'),
     path('collision-form/', views.collision_form_view, name='collision_form'),
     path('explosion-form/', views.explosion_form_view, name='explosion_form'),
